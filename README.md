@@ -13,9 +13,9 @@ I built a pipeline that fuses NASA GEDI LiDAR shots with ESA Sentinel-2 imagery 
 |:---:|:---:|
 | ![AGBD 2020](figures/agbd_map_2020.png) | ![AGBD 2022](figures/agbd_map_2022.png) |
 
-| GEDI Tracks + Bounding Box | Feature Correlation |
-|:---:|:---:|
-| ![GEDI Tracks](figures/gedi_tracks.png) | ![Feature Correlation Matrix](figures/feature_correlation.png) |
+| GEDI Tracks + Bounding Box | 
+|:---:|
+| ![GEDI Tracks](figures/gedi_tracks.png) |
 
 The diagonal stripes visible in both maps are GEDI orbital tracks - the model predicts wall-to-wall by interpolating S2 spectral features between sparse LiDAR ground truth. The stripes are more pronounced in 2022 due to lower shot density (4,297 vs 7,722 shots) caused by cloud cover reducing L2A coverage. These maps show spatial patterns in predicted biomass, not spatially continuous LiDAR measurements.
 
