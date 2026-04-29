@@ -1,0 +1,110 @@
+{
+  "project": "Forest Carbon Stock Change Estimation - Little Andaman Island",
+  "date_run": "2026-04-29",
+  "study_area": {
+    "island": "Little Andaman, Andaman Islands, India",
+    "bbox": [
+      92.303245,
+      10.504269,
+      92.665951,
+      10.9374
+    ],
+    "crs": "EPSG:4326"
+  },
+  "data_sources": {
+    "lidar": "NASA GEDI L4A v2.1 + L2A v2 (Harmony API)",
+    "optical": "ESA Sentinel-2 L2A median composite (OpenEO)",
+    "periods": {
+      "year_1": [
+        "2020-01-01",
+        "2020-04-30"
+      ],
+      "year_2": [
+        "2022-01-01",
+        "2022-04-30"
+      ]
+    }
+  },
+  "gedi": {
+    "2020": {
+      "shots_after_qc": 7722,
+      "mean_agbd": 181.9,
+      "mean_rh98": 27.7
+    },
+    "2022": {
+      "shots_after_qc": 4297,
+      "mean_agbd": 177.0,
+      "mean_rh98": 26.8,
+      "note": "One of 10 CMR granules unavailable via Harmony subsetter."
+    }
+  },
+  "model": {
+    "algorithm": "GradientBoostingRegressor",
+    "features": [
+      "rh98",
+      "NDVI",
+      "EVI",
+      "NDMI",
+      "NBR",
+      "SAVI",
+      "B02_Blue",
+      "B04_Red",
+      "B08_NIR",
+      "B11_SWIR1",
+      "B12_SWIR2"
+    ],
+    "n_estimators": 100,
+    "cv_folds": 5,
+    "cv_r2": 0.791,
+    "cv_rmse_pct": 21.4,
+    "rh98_importance": 0.793,
+    "note": "rh98 accounts for 79% of feature importance. S2-only R\u00b2 = -0.01 to 0.04, confirming optical saturation in dense tropical forest (mean AGBD ~180 Mg/ha).",
+    "sensor_benchmark": {
+      "rh98_only": 0.748,
+      "s2_only": 0.043,
+      "rh98_s2": 0.791
+    }
+  },
+  "wall_to_wall": {
+    "rh98_method": "IDW spatial interpolation (power=2, k=12 nearest neighbours)",
+    "rh98_source": "GEDI L2A footprint observations interpolated to 10m grid"
+  },
+  "carbon_stocks": {
+    "2020": {
+      "forest_area_ha": 67787.2,
+      "mean_agbd": 178.2,
+      "total_co2e": 20820842
+    },
+    "2022": {
+      "forest_area_ha": 68021.0,
+      "mean_agbd": 170.2,
+      "total_co2e": 19946522
+    }
+  },
+  "change_detection": {
+    "comparable_area_ha": 67374.6,
+    "mean_delta_agbd_mg_ha": -7.53,
+    "gross_sequestration_tco2e": 3001916,
+    "gross_emissions_tco2e": -3876059,
+    "net_change_tco2e": -874142,
+    "uncertainty_buffer_pct": 20,
+    "conservative_tco2e": -874142,
+    "direction": "DECLINE",
+    "context": "Net decline directionally consistent with documented long-term deforestation on Little Andaman (Sahoo et al. 2024, Journal of Coastal Conservation). Magnitude uncertain given 22% model RMSE."
+  },
+  "methodology_reference": {
+    "crediting": "VM0048 Reducing Emissions from Deforestation and Forest Degradation (Verra)",
+    "mrv": "VM0055 Remote Sensing MRV (Verra)",
+    "biomass_tool": "VT0005 ALFB via Remote Sensing (Verra)",
+    "carbon_factors": "IPCC 2006 Guidelines for National GHG Inventories"
+  },
+  "limitations": [
+    "IDW rh98 interpolation assumes isotropy - does not account for topographic or vegetation structure anisotropy",
+    "Inter-annual rh98 mean difference (27.66m vs 26.76m) may partially reflect GEDI sampling bias",
+    "2022 GEDI coverage sparser than 2020 - wider inter-track spacing increases IDW uncertainty",
+    "Single-pixel S2 sampling at GEDI footprint centres (25m vs 10m resolution mismatch)",
+    "Belowground biomass excluded - adds ~20-25% to total stock estimate",
+    "No baseline scenario, additionality assessment, or leakage buffer - feasibility study only",
+    "C-band SAR (Sentinel-1) also saturates at ~100 Mg/ha in this biome (S1-only R\u00b2 < 0)"
+  ]
+}

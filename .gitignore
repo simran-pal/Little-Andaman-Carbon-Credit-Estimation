@@ -1,0 +1,14 @@
+# Data files - too large for GitHub
+data/
+*.tif
+*.h5
+*.gpkg
+*.joblib
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Environment
+.env
