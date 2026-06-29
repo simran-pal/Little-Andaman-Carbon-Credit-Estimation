@@ -169,6 +169,29 @@ These will be published as an extension to this repository once finalized.
 ---
 
 ## Repo Structure
++-- figures/
+|   +-- agbd_map_2020.png
+|   +-- agbd_map_2022.png
+|   +-- feature_correlation.png
+|   +-- feature_relationships.png
+|   +-- gedi_tracks.png
+|   +-- s2_bands_2020.png
+|   +-- s2_bands_2022.png
++-- output/
+|   +-- model_benchmark.csv
+|   +-- model_dataset_2020.csv
+|   +-- model_dataset_2022.csv
+|   +-- project_summary.json
++-- Little_Andaman_Carbon_Stock_project.ipynb
++-- requirements.txt
++-- README.md
++-- .gitignore
+
+> **Data files** (`.tif`, `.h5`, `.gpkg`, `.joblib`) are excluded via `.gitignore`, given GitHub file size limits. They can be reproduced by running the acquisition cells with valid NASA Earthdata and Copernicus Data Space credentials.
+
+---
+## Setup
+
 git clone https://github.com/simran-pal/Little-Andaman-Carbon-Credit-Estimation.git
 
 cd Little-Andaman-Carbon-Credit-Estimation
