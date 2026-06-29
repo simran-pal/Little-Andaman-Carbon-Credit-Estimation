@@ -20,7 +20,7 @@ A longer 2020 to 2025 longitudinal extension of this analysis is currently in pr
 
 | GEDI Tracks + Bounding Box |
 | --- |
-| [GEDI Tracks](figures/gedi_tracks.png) |
+| ![GEDI Tracks](figures/gedi_tracks.png) |
 
 The diagonal stripes visible in both maps are GEDI orbital tracks, the model predicts wall-to-wall by interpolating S2 spectral features between sparse LiDAR ground truth. The stripes are more pronounced in 2022 due to lower shot density (4,297 vs 7,722 shots), reflecting cloud cover reducing L2A coverage. These maps show spatial patterns in predicted biomass, scoped as model output rather than spatially continuous LiDAR measurement.
 
