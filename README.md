@@ -169,6 +169,7 @@ These will be published as an extension to this repository once finalized.
 ---
 
 ### Repo Structure
+''' 
 +-- figures/
 |   +-- agbd_map_2020.png
 |   +-- agbd_map_2022.png
@@ -186,6 +187,7 @@ These will be published as an extension to this repository once finalized.
 +-- requirements.txt
 +-- README.md
 +-- .gitignore
+'''
 
 > **Data files** (`.tif`, `.h5`, `.gpkg`, `.joblib`) are excluded via `.gitignore`, given GitHub file size limits. They can be reproduced by running the acquisition cells with valid NASA Earthdata and Copernicus Data Space credentials.
 
