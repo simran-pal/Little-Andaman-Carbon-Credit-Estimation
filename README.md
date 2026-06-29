@@ -69,6 +69,9 @@ Verra's frameworks (VM0042 for REDD+ crediting, VM0055 for remote sensing MRV, V
 * **ESA Sentinel-2 L2A** - cloud-masked median composites (Jan-Apr) acquired via OpenEO / Copernicus Data Space
 
 ### Pipeline
+
+'''
+
 GEDI L4A + L2A  --+
 
 (Harmony API)     +---> Feature Fusion ---> Gradient Boosting ---> Wall-to-Wall AGBD
@@ -77,6 +80,7 @@ Sentinel-2 L2A  --+    (GEDI x S2)         (rh98 + indices)       ---> Carbon St
 
 (OpenEO)                                                            ---> Change Detection
 
+'''
 
 **Step 1 - GEDI Acquisition & Preprocessing**
 L4A (AGBD) and L2A (canopy height) downloaded as subsetted HDF5 files. L4A acquired as a single annual request; L2A in monthly batches. Beams parsed across all 8 GEDI beam groups. Shots joined on rounded lat/lon coordinates and filtered on: `l4_quality_flag == 1`, PFT class 1-5 (forest/shrub), AGBD 0-600 Mg/ha.
@@ -169,8 +173,8 @@ These will be published as an extension to this repository once finalized.
 ---
 
 ## Repo Structure
-'''
 
+'''
 figures/
 ├── agbd_map_2020.png
 ├── agbd_map_2022.png
@@ -190,7 +194,6 @@ Little_Andaman_Carbon_Stock_project.ipynb
 requirements.txt
 README.md
 .gitignore
-
 '''
 
 > **Data files** (`.tif`, `.h5`, `.gpkg`, `.joblib`) are excluded via `.gitignore`, given GitHub file size limits. They can be reproduced by running the acquisition cells with valid NASA Earthdata and Copernicus Data Space credentials.
