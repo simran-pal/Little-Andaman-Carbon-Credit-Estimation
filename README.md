@@ -168,8 +168,7 @@ These will be published as an extension to this repository once finalized.
 
 ---
 
-## Repo Structure
-
+### Repo Structure
 +-- figures/
 |   +-- agbd_map_2020.png
 |   +-- agbd_map_2022.png
