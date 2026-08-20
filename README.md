@@ -1,12 +1,12 @@
 # Forest Carbon Stock Change Estimation - Little Andaman Island, India
 
-### GEDI LiDAR | Sentinel-2 | Gradient Boosting | 2020-2022
+### GEDI LiDAR | Sentinel-2 | Gradient Boosting | 2020-2025
 
 Little Andaman Island sits at the center of a development debate in India. NITI Aayog's *Sustainable Development of Little Andaman Island - Vision Document* proposes opening up roughly 240 sq km, about 35% of the island, for a greenfield city pitched as a free trade hub, including an airport, film city, and tourism SEZ. The proposal involves de-reserving a third of the island's protected forest and de-notifying part of the Onge Tribal Reserve, home to a particularly vulnerable indigenous group.
 
 This raised a question: what is actually at stake, ecologically, if development of this scale proceeds, and how that can be expressed in terms development economics already uses, tonnes of CO2e and dollars, rather than only hectares of forest.
 
-This project builds the measurement layer underneath that question. I fused NASA GEDI LiDAR shots with ESA Sentinel-2 imagery to estimate above-ground biomass density (AGBD) across Little Andaman Island for 2020 and 2022, producing a wall-to-wall AGBD map, a change detection raster, and a carbon stock change estimate structured around Verra's VM0042 remote sensing framework. This is an exploratory feasibility study, scoped to translate ecological change into economic terms rather than to produce a submission-ready MRV report, though every methodological choice maps to a real framework decision.
+This project builds the measurement layer underneath that question. I fused NASA GEDI LiDAR shots with ESA Sentinel-2 imagery to estimate above-ground biomass density (AGBD) across Little Andaman Island for 2020 and 2025, producing a wall-to-wall AGBD map, a change detection raster, and a carbon stock change estimate structured around Verra's VM0042 remote sensing framework. This is an exploratory feasibility study, scoped to translate ecological change into economic terms rather than to produce a submission-ready MRV report, though every methodological choice maps to a real framework decision.
 
 A longer 2020 to 2025 longitudinal extension of this analysis is currently in progress and will be published as an update to this repository. See **Future Updates** below.
 
@@ -14,15 +14,15 @@ A longer 2020 to 2025 longitudinal extension of this analysis is currently in pr
 
 ## Figures
 
-| AGBD Map 2020 | AGBD Map 2022 |
+| AGBD Map 2020 | AGBD Map 2025 |
 | --- | --- |
-| ![AGBD 2020](figures/agbd_map_2020.png) | ![AGBD 2022](figures/agbd_map_2022.png) |
+| ![AGBD 2020](figures/agbd_map_2020.png) | ![AGBD 2025](figures/agbd_map_2025.png) |
 
 | GEDI Tracks + Bounding Box |
 | --- |
 | ![GEDI Tracks](figures/gedi_tracks.png) |
 
-The diagonal stripes visible in both maps are GEDI orbital tracks, the model predicts wall-to-wall by interpolating S2 spectral features between sparse LiDAR ground truth. The stripes are more pronounced in 2022 due to lower shot density (4,297 vs 7,722 shots), reflecting cloud cover reducing L2A coverage. These maps show spatial patterns in predicted biomass, scoped as model output rather than spatially continuous LiDAR measurement.
+The diagonal stripes visible in both maps are GEDI orbital tracks, the model predicts wall-to-wall by interpolating S2 spectral features between sparse LiDAR ground truth. The stripes are more pronounced in 2025 due to lower shot density (4,297 vs 7,722 shots), reflecting cloud cover reducing L2A coverage. These maps show spatial patterns in predicted biomass, scoped as model output rather than spatially continuous LiDAR measurement.
 
 ---
 
@@ -31,14 +31,14 @@ The diagonal stripes visible in both maps are GEDI orbital tracks, the model pre
 | Metric | Value |
 | --- | --- |
 | GEDI shots (2020, after QC) | 7,722 |
-| GEDI shots (2022, after QC) | 4,297 |
+| GEDI shots (2025, after QC) | 4,297 |
 | Model CV R² (Gradient Boosting) | **0.791** |
 | Model CV RMSE | 38.9 Mg/ha (~21%) |
 | Comparable forest area | 67,374.6 ha |
 | Carbon stock 2020 | 20,820,842 tCO2e |
-| Carbon stock 2022 | 19,946,522 tCO2e |
+| Carbon stock 2025 | 19,946,522 tCO2e |
 | Mean AGBD change | -7.53 Mg/ha |
-| Net change (2020 to 2022) | -874,143 tCO2e (decline) |
+| Net change (2020 to 2025) | -874,143 tCO2e (decline) |
 | Indicative value loss @ $5.60/tCO2e | ~$4.9M |
 
 ---
@@ -111,7 +111,7 @@ Three models benchmarked across three feature sets via 5-fold cross-validation:
 S2-only R² near zero is consistent with **optical saturation** in dense tropical forest (AGBD > 150 Mg/ha), where spectral indices plateau and lose discriminative power. rh98 canopy height accounts for **79.3% of feature importance**. Sentinel-2 functions as spatial scaffolding enabling wall-to-wall extrapolation between sparse GEDI tracks, distinct from acting as a primary biomass predictor.
 
 **Step 5 - Wall-to-Wall Prediction**
-The 2020 model applied to every S2 pixel in both years. rh98 held at the year-specific GEDI mean (2020: 27.7m, 2022: 27.5m). Forest mask applied: NIR > 0.1, NDVI > 0.5, Blue < 0.15. A single model across both years keeps observed change attributable to biomass change rather than model variation between years.
+The 2020 model applied to every S2 pixel in both years. rh98 held at the year-specific GEDI mean (2020: 27.7m, 2025: 27.5m). Forest mask applied: NIR > 0.1, NDVI > 0.5, Blue < 0.15. A single model across both years keeps observed change attributable to biomass change rather than model variation between years.
 
 **Step 6 - Carbon Estimation**
 IPCC 2006 conversion factors applied:
@@ -128,7 +128,7 @@ Change detection is restricted to pixels classified as forest in **both** years,
 
 **Optical saturation is a demonstrated constraint, central to the methodology rather than a footnote.** Sentinel-2 indices alone achieve R² near 0.04 for AGBD in this forest type, with discriminative power dropping off above roughly 150 Mg/ha. This is the empirical basis for relying on GEDI LiDAR as the primary signal, with rh98 carrying 79.3% of feature importance.
 
-**Forest carbon stock shows a measurable decline between 2020 and 2022.** The wall-to-wall raster comparison estimates a net change of -874,143 tCO2e, with gross emissions outweighing gross sequestration across the comparable forest area.
+**Forest carbon stock shows a measurable decline between 2020 and 2025.** The wall-to-wall raster comparison estimates a net change of -874,143 tCO2e, with gross emissions outweighing gross sequestration across the comparable forest area.
 
 **The scope of this work is an exploratory feasibility study.** Its purpose is to translate ecological change into economic terms using Verra's frameworks as a structural reference, distinct in scope from a registered Verra project, baseline, or third-party verified MRV report.
 
@@ -141,15 +141,15 @@ This study operates within the following defined scope:
 * **rh98 is held at the year-mean for wall-to-wall prediction.** Canopy height is not spatially interpolated across the island; the wall-to-wall AGBD map draws spatial texture from Sentinel-2 while rh98 is treated as locally uniform within each year.
 * **Sentinel-2 sampling uses a single pixel at each GEDI footprint centre.** GEDI footprints are 25m; S2 pixels are 10m. This is a documented simplification, reasonable given S2's roughly 20% contribution to model signal.
 * **Belowground biomass sits outside the current measurement scope.** It typically adds another 20-25% to total carbon stock and is reserved for future extension.
-* **GEDI coverage varies between years.** 2022 cloud cover reduced L2A coverage to 4,297 shots versus 7,722 in 2020, narrowing spatial coverage available for the change estimate, with identical acquisition and filtering applied across both years.
-* **The mean delta AGBD of -7.53 Mg/ha is read alongside the model's 22% RMSE.** The decline signal sits close to the model's own error margin and may partly reflect differences in 2022 cloud masking alongside real biomass change, a distinction the longitudinal extension is designed to clarify.
+* **GEDI coverage varies between years.** 2025 cloud cover reduced L2A coverage to 4,297 shots versus 7,722 in 2020, narrowing spatial coverage available for the change estimate, with identical acquisition and filtering applied across both years.
+* **The mean delta AGBD of -7.53 Mg/ha is read alongside the model's 22% RMSE.** The decline signal sits close to the model's own error margin and may partly reflect differences in 2025 cloud masking alongside real biomass change, a distinction the longitudinal extension is designed to clarify.
 * **A counterfactual baseline, leakage assessment, and permanence analysis sit outside the current scope**, consistent with this being a feasibility study rather than a full REDD+ project design document.
 
 ---
 
 ## Future Updates
 
-This README currently covers the 2020 vs 2022 phase of the project. Work is underway to extend the analysis into a longitudinal time series covering 2020, 2022, 2023, and 2025 (2021 sits outside scope due to corrupt L2A files; 2024 sits outside scope due to a GEDI instrument gap).
+This README currently covers the 2020 vs 2025 phase of the project. Work is underway to extend the analysis into a longitudinal time series covering 2020, 2025, 2023, and 2025 (2021 sits outside scope due to corrupt L2A files; 2024 sits outside scope due to a GEDI instrument gap).
 
 Planned additions:
 * Longitudinal AGBD and rh98 trends across all four periods, building on the single-period comparison above
@@ -177,17 +177,17 @@ These will be published as an extension to this repository once finalized.
 ```
 figures/
 ├── agbd_map_2020.png
-├── agbd_map_2022.png
+├── agbd_map_2025.png
 ├── feature_correlation.png
 ├── feature_relationships.png
 ├── gedi_tracks.png
 ├── s2_bands_2020.png
-└── s2_bands_2022.png
+└── s2_bands_2025.png
 
 output/
 ├── model_benchmark.csv
 ├── model_dataset_2020.csv
-├── model_dataset_2022.csv
+├── model_dataset_2025.csv
 └── project_summary.json
 
 Little_Andaman_Carbon_Stock_project.ipynb
